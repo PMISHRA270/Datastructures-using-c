@@ -24,9 +24,10 @@ void push(int *s,int ele)
 int pop(int *s)
 {
     if(!underflow())
-    printf("the deleted element is:%d\n",s[top--]);
+    return(s[top--]);
     else
     printf("stack underflow\n");
+    return(0);
 }
 void display(int *s)
 {
@@ -42,7 +43,7 @@ void display(int *s)
 }
 void palindrome(int *s,char *c)
 {
-    int i=0,f=0,top=-1,n;
+    int i=0,f=0,n,top=-1;
     while(c[i]!='\0')
     {
         push(s,c[i]-'0');
@@ -64,10 +65,10 @@ void palindrome(int *s,char *c)
  void main()
  {
     int s[MAX],ch,ele;
-    char c[20];
+    char c[10];
     while(1)
     {
-        printf("enter your choice:\n1.push\n2.pop\n3.display\n4.check palindrome\n5.exit\n");
+        printf("\nenter your choice:\n1.push\n2.pop\n3.display\n4.check palindrome\n5.exit\n");
         scanf("%d",&ch);
         switch(ch)
         {
@@ -87,6 +88,7 @@ void palindrome(int *s,char *c)
         }
      }
  }
+
 
        
     
