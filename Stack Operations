@@ -30,6 +30,7 @@ int pop(int *s)
 }
 void display(int *s)
 {
+    int i;
     if(!underflow())
     {
         printf("the elements of the stack are:\n");
@@ -41,6 +42,54 @@ void display(int *s)
 }
 void palindrome(int *s,char *c)
 {
+    int i=0,f=0,top=-1,n;
+    while(c[i]!='\0')
+    {
+        push(s,c[i]-'0');
+        i++;
+     }
+     n=i-1;
+     for(i=0;i<=n;i++)
+     {
+        if(c[i]!=pop(s)+'0')
+        {
+            printf("string is not palindrome\n");
+            f=1;
+            break;
+         }
+      }
+      if(f==0)
+      printf("string is palindrome\n");
+ }
+ void main()
+ {
+    int s[MAX],ch,ele;
+    char c[20];
+    while(1)
+    {
+        printf("enter your choice:\n1.push\n2.pop\n3.display\n4.check palindrome\n5.exit\n");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:printf("enter the element to be pushed\n");
+                    scanf("%d",&ele);
+                    push(s,ele);
+                    break;
+            case 2:pop(s);
+                    break;
+            case 3:display(s);
+                    break;
+            case 4:printf("enter the string to be checked\n");
+                    scanf("%s",c);
+                    palindrome(s,c);
+                    break;
+            case 5:exit(0);
+        }
+     }
+ }
+
+       
+    
     
 
     
