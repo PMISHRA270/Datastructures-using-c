@@ -1,1 +1,58 @@
 #include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+void read(char *s)
+{
+    gets(s);
+}
+int strlength(char *s)
+{
+    int i;
+    for(i=0;s[i]!='\0';i++)
+    return i;
+}
+int matchnreplace(char *str,char *pat,char *rep,int patlen,int replen)
+{
+    char ans[100];
+    int i=0,j=0,k,m=0,c=0,flag=0;
+    while(str[c]!='\0')
+    {
+        if(str[m]==pat[i])
+        {
+            m++;i++;
+            if(pat[i]=='\0')
+            {
+                flag=1;
+                for(k=0;rep[k]!='\0';k++,j++)
+                ans[j]=rep[k];
+                i=0;c=m;
+             }
+         }
+         else
+         {
+            ans[j]=str[c];
+            j++;c++;i=0;m=c;
+         }
+     }
+     ans[j]='\0';
+     strcpy(str,ans);
+     return flag;
+ }
+ void main()
+ {
+    char str[100],pat[20],rep[20];
+    int i,k,j,strlen,patlen,replen,flag=0;
+    printf("enter a string\n");
+    read(str);
+    printf("enter the pattern string\n");
+    read(pat);
+    printf("enter the string to replace the pattern\n");
+    read(rep);
+    patlen=strlength(pat);
+    replen=strlength(rep);
+    flag=matchnreplace(str,pat,rep,patlen,replen);
+    if(flag==1)
+    printf("the string is %s\n",str);
+    else
+    printf("pattern not found\n");
+ }
