@@ -37,7 +37,7 @@ int main()
     int a[10],ele,pos,ch;
     while(1)
     {
-        printf("Enter your choice:\n1.Create\n2.Display\n3.Insert\n4.Delete\n5.Exit\n");
+        printf("\nEnter your choice:\n1.Create\n2.Display\n3.Insert\n4.Delete\n5.Exit\n");
         scanf("%d",&ch);
         switch(ch)
         {
