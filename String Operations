@@ -42,17 +42,17 @@ int matchnreplace(char *str,char *pat,char *rep,int patlen,int replen)
  {
     char str[100],pat[20],rep[20];
     int i,k,j,strlen,patlen,replen,flag=0;
-    printf("enter a string\n");
+    printf("Enter a string\n");
     read(str);
-    printf("enter the pattern string\n");
+    printf("Enter the pattern string\n");
     read(pat);
-    printf("enter the string to replace the pattern\n");
+    printf("Enter the string to replace the pattern\n");
     read(rep);
     patlen=strlength(pat);
     replen=strlength(rep);
     flag=matchnreplace(str,pat,rep,patlen,replen);
     if(flag==1)
-    printf("the string is %s\n",str);
+    printf("The new string is %s\n",str);
     else
-    printf("pattern not found\n");
+    printf("Pattern not found\n");
  }
