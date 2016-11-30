@@ -1,1 +1,163 @@
 #include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int sem,phno;
+    char usn[10],name[20],branch[10];
+    struct node *link;
+};
+typedef struct node *NODE;
+NODE start=NULL;
+NODE getnode()
+{
+    NODE newnode;
+    newnode=(NODE)malloc(sizeof(struct node));
+    printf("Enter usn,name,branch,sem,phno:");
+    scanf("%s%s%s%d%d",newnode->usn,newnode->name,newnode->branch,&newnode->sem,&newnode->phno);
+    newnode->link=NULL;
+    return newnode;
+}
+void create(int n)
+{
+    int i;
+    NODE newnode;
+    NODE temp;
+    for(i=0;i<n;i++)
+    {
+        newnode=getnode();
+        if(start==NULL)
+        {
+            start=newnode;
+        }
+        else
+        {
+            temp=start;
+            while(temp->link!=NULL)     
+            {
+                temp=temp->link;
+            }
+            temp->link=newnode;
+        }
+    }
+}
+int count()
+{
+    int c=1;
+    NODE temp;
+    temp=start;
+    while(temp->link!=NULL)
+    {
+      c++;
+      temp=temp->link;
+    }
+    return(c);
+}
+void display()
+{
+    NODE temp;
+    temp=start;
+    if(start==NULL)
+    {
+        printf("List is empty\n");
+    }
+    else
+    {
+        while(temp!=NULL)
+        {
+            printf("\nusn,name,branch,sem,phno:\n%s %s %s %d %d\n",temp->usn,temp->name,temp->branch,temp->sem,temp->phno);
+            temp=temp->link;
+        }
+    }
+}
+void insbeg()
+{
+    NODE newnode=getnode();
+    if(start==NULL)
+    start=newnode;
+    else
+    {
+        newnode->link=start;
+        start=newnode;
+    }
+}
+void delbeg()
+{
+    NODE temp;
+    if(start==NULL)
+    printf("List is empty\n");
+    else
+    {
+      temp=start;
+      start=temp->link;
+      free(temp);
+    }
+}
+void insend()
+{
+    NODE newnode=getnode();
+    NODE temp;
+    if(start==NULL)
+    start=newnode;
+    else
+    {
+        temp=start;
+        while(temp->link!=NULL)
+        {
+            temp=temp->link;
+        }
+        temp->link=newnode;
+    }
+}
+void delend()
+{
+    NODE temp,prev;
+    if(start==NULL)
+    printf("List is empty\n");
+    else
+    {
+      temp=start;
+      prev=start;
+      while(temp->link!=NULL)
+      {
+          prev=temp;
+          temp=temp->link;
+      }
+      prev->link=NULL;
+      free(temp);
+    }
+}
+void main()
+{
+    int ch,num,cnt;
+    printf("SLL OPERATIONS\n");
+    printf("1.Create\n2.Count\n3.Display\n4.Insert at beginning\n5.Delete at beginning\n6.Insert at end\n7.Delete at end\n8.Exit\n");
+    while(1)
+    {
+        printf("\nEnter your choice:");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case1:printf("Enter the number of nodes\n");
+                  scanf("%d",&num);
+                  create(num);
+                  break;
+            case2:cnt=count();
+                  printf("Node of nodes=%d",cnt);
+                  break;
+            case3:display();
+                  break;
+            case4:insbeg();
+                  break;
+            case5:delbeg();
+                  break;
+            case6:insend();
+                  break;
+            case7:delend();
+                  break;
+            case8:exit(1);
+                  break;
+            default:printf("Invalid Input\n");
+         }
+     }
+}
+            
