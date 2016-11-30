@@ -1,1 +1,100 @@
 #include<stdio.h>
+#include<stdlib.h>
+#define MAX 10
+char CQ[MAX];
+int f=-1,r=-1;
+int CQfull()
+{
+    if((f==r+1)||(f==0&&r==MAX-1))
+    return 1;
+    return 0;
+}
+int CQempty()
+{
+    if(f==-1)
+    return 1;
+    return 0;
+}
+void CQinsert(char ele)
+{
+    if(CQfull())
+    printf("Queue if full\n");
+    else
+    {
+        if(f==-1)
+        f=0;
+        r=(r+1)%MAX;
+        CQ[r]=ele;
+     }
+}
+char CQdelete()
+{
+    char ele;
+    if(CQempty())
+    {
+      printf("Queue is empty\n");
+      return -1;
+    }
+    else
+    {
+        ele=CQ[f];
+        if(f==r)
+        {
+            f=-1;
+            r=-1;
+        }
+        else
+        {
+          f=(f+1)%MAX;
+          return ele;
+        }
+     }
+}
+void display()
+{
+    int i;
+    if(CQempty())
+    printf("empty queue\n");
+    else
+    {
+        for(i=f;i!=r;i=(i+1)%MAX)
+        printf("%c\t",CQ[i]);
+        printf("%c\t",CQ[i]);
+     }
+ }
+ void main()
+ {
+    int opn;
+    char ele,c;
+    while(1)
+    {
+        printf("\nEnter your choice\n1.Insert\n2.Delete\n3.Display\n4.Exit\n");
+        scanf("%d",&opn);
+        c=getchar();
+        switch(opn)
+        {
+            case 1:printf("enter the elements to be inserted\n");
+                    scanf("%c",&ele);
+                    CQinsert(ele);
+                    break;
+            case 2:ele=CQdelete();
+                    if(ele!=-1)
+                    printf("the deleted element is: %c\n",ele);
+                    break;
+             case 3:printf("the elements of the queue are\n");
+                    display();
+                    break;
+             case 4:exit(0);
+          }
+     }
+ }
+
+                    
+    
+    
+    
+
+
+    
+
+    
