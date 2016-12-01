@@ -1,0 +1,184 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+  char ssn[10];
+  char name[10];
+  char dept[10];
+  char desig[10];
+  char sal[10];
+  char ph_no[10];
+  struct node *llink;
+  struct node *rlink;
+};
+struct node *head=NULL;
+struct node *createnode()
+{
+    struct node *temp;
+    temp=malloc(sizeof(struct node));
+    printf("enter the ssn\n");
+    gets(temp->ssn);
+    printf("enter name\n");
+    gets(temp->name);
+    printf("enter the dept\n");
+    gets(temp->dept);
+    printf("enter the salary\n");
+    gets(temp->sal);
+    printf("enter the phone no.\n");
+    gets(temp->ph_no);
+    temp->llink=NULL;
+    temp->rlink=NULL;
+    return temp;
+ }
+ void insertfront()
+ {
+    struct node *temp=NULL;
+    temp=createnode();
+    if(head!=NULL)
+    {
+      temp->rlink=head;
+      head->llink=temp;
+    }
+    head=temp;
+ }
+void delfront()
+{
+    struct node *temp=head;
+    if(head==NULL);
+    {
+      printf("empty dll\n");
+      return;
+    }
+    printf("the deleted node is:\n");
+    printf("ssn=%s\n",temp->ssn);
+    printf("name=%s\n",temp->name);
+    printf("dept=%s\n",temp->dept);
+    printf("sal=%s\n",temp->sal);
+    printf("ph no.=%s\n",temp->ph_no);
+    head=temp->rlink;
+    head->llink=NULL;
+    free(temp);
+}
+void insertend()
+{
+    struct node *temp1,*temp2=head;
+    temp1=createnode();
+    if(head==NULL)
+    {
+      head=temp1;
+      return;
+    }
+    while(temp2->rlink!=NULL)
+    {
+      temp2=temp2->rlink;
+      temp2->rlink=temp1;
+      temp1->llink=temp2;
+    }
+}
+void delend()
+{
+  struct node *temp2=head;
+  if(head==NULL)
+  {
+    printf("dll is empty\n");
+    return;
+  }
+  while(temp2->rlink!=NULL)
+  {
+      temp2=temp2->rlink;
+      temp2->llink->rlink=NULL;
+      free(temp2);
+  }
+}
+void create()
+{
+  int n,i;
+  printf("enter the no of employees\n");
+  scanf("%d",&n);
+  for(i=1;i<=n;i++)
+  {
+      insertend();
+  }
+}
+void display()
+{
+  int c=0;
+  struct node *temp=head;
+  while(temp!=NULL)
+  {
+      printf("ssn=%s\n",temp->ssn);
+      printf("name=%s\n",temp->name);
+      printf("dept=%s\n",temp->dept);
+      printf("sal=%s\n",temp->sal);
+      printf("ph no.=%s\n",temp->ph_no);
+      c=c+1;
+      temp=temp->rlink;
+   }
+   printf("the no. of nodes are:%d",c);
+}
+void dequeue()
+{
+    int ch;
+    printf("\n1.insert at front\n2.insert at end\n3.delete from front\n4.delete from end\nenter your choice\n");
+    scanf("%d",&ch);
+    switch(ch)
+    {
+        case 1:printf("enter the elements to be inserted\n");
+                insertfront();
+                break;
+        case 2:printf("enter the elements to be inserted\n");
+                insertend();
+                break;
+        case 3:delfront();
+                break;
+        case 4:delend();
+                break;
+    }
+}
+void main()
+{
+    int ch1,ch2,ch3;
+    while(1)
+    {
+        printf("\nenter your choice\n1.create\n2.display and count\n3.insert and delete at end\n4.insert and delete from front\n5.dll as dequeue\n6.exit\n");
+        scanf("%d",&ch1);
+        switch(ch1)
+        {
+            case 1:create();
+                    break;
+            case 2:display();
+                    break;
+            case 3:printf("enter your choice:\n1.insert\n2.delete\n");
+                    scanf("%d",&ch2);
+                    if(ch2==1)
+                    insertend();
+                    else
+                    delend();
+                    break;
+            case 4:printf("enter your choice:\n1.insert\n2.delete\n");
+                    scanf("%d",&ch3);
+                    if(ch3==1)
+                    insertfront();
+                    else
+                    delfront();
+                    break;
+            case 5:dequeue();
+                    break;
+            case 6:exit(0);
+         }
+     }
+}
+
+                    
+                    
+        
+    
+      
+  
+    
+    
+    
+    
+
+ 
+    
