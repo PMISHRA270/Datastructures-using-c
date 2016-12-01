@@ -18,7 +18,7 @@ struct node *createnode()
     struct node *temp;
     temp=(struct node*)malloc(sizeof(struct node));
     printf("enter the ssn\n");
-    fflush(stdin)
+    fflush(stdin);
     c=getchar();
     gets(temp->ssn);
     printf("enter name\n");
@@ -95,7 +95,7 @@ void delend()
       printf("the deleted node is:\n");
       printf("ssn=%s",temp2->ssn);
       printf("name=%s",temp2->name);
-      printf("dept=%s",temp2->dep);
+      printf("dept=%s",temp2->dept);
       printf("sal=%s",temp2->sal);
       printf("ph no.=%s",temp2->ph_no);
       temp2->llink=temp2->rlink=NULL;
