@@ -1,0 +1,54 @@
+#include<stdio.h>
+#include<stdlib.h>
+int count=0;
+void creategraph(int n,int a[10][10])
+{
+  int i,j;
+  printf("enter the adjacency matrix\n");
+  for(i=0;i<n;i++)
+  for(j=0;j<n;j++)
+  scanf("%d",&a[i][j]);
+}
+void dfs(int a[10][10],int n,int vis[],int v)
+{
+  int i;
+  vis[v]=1;
+  for(i=0;i<n;i++)
+  {
+    if((a[v][i]==1)&&(vis[i]==0))
+    dfs(a,n,vis,i);
+  }
+}
+void reach(int *a,int n)
+{
+  int i,source,s[10];
+  for(i=0;i<n;i++)
+  s[i]=0;
+  printf("enter the source\n");
+  scanf("%d",&source);
+  dfs(a,n,s,source);
+  printf("the nodes reachable are:\n");
+  for(i=0;i<n;i++)
+  if((s[i]!=0)&&(s[i]!=source))
+  printf("%d",i);
+}
+void main()
+{
+    int n,a[10][10];
+    int ch;
+    while(1)
+    {
+        printf("\nenter your choice\n1.create graph\n2.check searchability\n3.exit\n");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:printf("enter the no of nodes\n");
+                    scanf("%d",&n);
+                    creategraph(n,a);
+                    break;
+            case 2:reach(a,n);
+                    break;
+            case 3:exit(0);
+        }
+    }
+}
