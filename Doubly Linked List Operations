@@ -14,9 +14,12 @@ struct node
 struct node *head=NULL;
 struct node *createnode()
 {
+    char c;
     struct node *temp;
-    temp=malloc(sizeof(struct node));
+    temp=(struct node*)malloc(sizeof(struct node));
     printf("enter the ssn\n");
+    fflush(stdin)
+    c=getchar();
     gets(temp->ssn);
     printf("enter name\n");
     gets(temp->name);
@@ -68,11 +71,14 @@ void insertend()
       head=temp1;
       return;
     }
-    while(temp2->rlink!=NULL)
+    else
     {
-      temp2=temp2->rlink;
-      temp2->rlink=temp1;
-      temp1->llink=temp2;
+      while(temp2->rlink!=NULL)
+      {
+        temp2=temp2->rlink;
+      }
+        temp2->rlink=temp1;
+        temp1->llink=temp2;
     }
 }
 void delend()
@@ -86,7 +92,13 @@ void delend()
   while(temp2->rlink!=NULL)
   {
       temp2=temp2->rlink;
-      temp2->llink->rlink=NULL;
+      printf("the deleted node is:\n");
+      printf("ssn=%s",temp2->ssn);
+      printf("name=%s",temp2->name);
+      printf("dept=%s",temp2->dep);
+      printf("sal=%s",temp2->sal);
+      printf("ph no.=%s",temp2->ph_no);
+      temp2->llink=temp2->rlink=NULL;
       free(temp2);
   }
 }
@@ -106,6 +118,7 @@ void display()
   struct node *temp=head;
   while(temp!=NULL)
   {
+      printf("the node %d is",c+1);
       printf("ssn=%s\n",temp->ssn);
       printf("name=%s\n",temp->name);
       printf("dept=%s\n",temp->dept);
