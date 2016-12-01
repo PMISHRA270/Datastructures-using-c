@@ -1,0 +1,58 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#include<string.h>
+#define MAX 50
+int stack[MAX];
+char post[MAX];
+top=-1;
+void pushstack(int tmp);
+void calcultor(char c);
+void pushstack(int tmp)
+{
+    top++;
+    stack[top]=(int)(post[tmp]-48);
+}
+void calculator(char c)
+{
+    int a,b,ans;
+    a=stack[top];
+    stack[top]='\0';
+    top--;
+    b=stack[top];
+    stack[top]='\0';
+    top--;
+    switch(c)
+    {
+        case '+':ans=b+a;
+                 break;
+        case '-':ans=b-a;
+                 break;
+        case '*':ans=b*a;
+                 break;
+        case '/':ans=b/a;
+                 break;
+        case '^':ans=pow(b,a);
+                 break;
+     }
+     top++;
+     stack[top]=ans;
+}
+void main()
+{
+    int i;
+    printf("enter a postfix notation:");
+    scanf("%s",post);
+    for(i=0;i<strlen(post);i++)
+    {
+        if(post[i]>='0'&&post[i]<='9')
+        {
+            pushstack(i);
+         }
+         if(post[i]=='+'||post[i]=='-'||post[i]=='*'||post[i]=='/'||post[i]=='^')
+         {
+            calculator(post[i]);
+         }
+     }
+     printf("the result is:%d",stack[top]);
+}
