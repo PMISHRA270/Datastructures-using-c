@@ -1,1 +1,106 @@
 #include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *left;
+    struct node *right;
+};
+struct node *createnode(int item)
+{
+    struct node *temp=malloc(sizeof(struct node));
+    temp->data=item;
+    temp->left=temp->right=NULL;
+    return temp;
+}
+struct node *insert(struct node *node,int key)
+{
+    if(node==NULL)
+    return createnode(key);
+    if(node->data<key)
+    node->right=insert(node->right,key);
+    else if(node->data>key)
+    node->left=insert(node->left,key);
+    return node;
+}
+int search(struct node *root,int key)
+{
+    if(root==NULL)
+    return -1;
+    if(root->data==key)
+    return 1;
+    if(root->data<key)
+    return search(root->right,key);
+    else if(root->data>key)
+    return search(root->left,key);
+}
+void inorder(struct node *root)
+{
+    if(root!=NULL)
+    {
+        inorder(root->left);
+        printf("%d\t",root->data);
+        inorder(root->right);
+    }
+}
+void preorder(struct node *root)
+{
+    if(root!=NULL)
+    {
+        printf("%d\t",root->data);
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
+void postorder(struct node *root)
+{
+    if(root!=NULL)
+    {
+        postorder(root->left);
+        postorder(root->right);
+        printf("%d\t",root->data);
+    }
+}
+void main()
+{
+    int ch,ch1,n,i,key,pos;
+    struct node *root=NULL;
+    while(1)
+    {
+        printf("\nenter your choice\n1.create\n2.traversal\n3.search\n4.exit\n");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:printf("enter the no of nodes of bst\n");
+                    scanf("%d",&n);
+                    for(i=0;i<n;i++)
+                    {
+                      printf("enter the element to be inserted\n");
+                      scanf("%d",&key);
+                      root=insert(root,key);
+                    }
+                    break;
+            case 2:printf("enter your choice\n1.inorder\n2.preorder\n3.postorder\n");
+                    scanf("%d",&ch1);
+                    if(ch1==1)
+                    inorder(root);
+                    if(ch1==2)
+                    preorder(root);
+                    else if(ch1==3)
+                    postorder(root);
+                    break;
+            case 3:printf("enter the key element to be searched\n");
+                    scanf("%d",&key);
+                    pos=search(root,key);
+                    if(pos==-1)
+                    printf("key is not found\n");
+                    else
+                    printf("key is found\n");
+                    break;
+            case 4:exit(0);
+         }
+    }
+}
+
+                    
+    
