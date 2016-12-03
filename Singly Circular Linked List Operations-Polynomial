@@ -1,0 +1,155 @@
+#include<stdio.h>
+#include<math.h>
+#include<stdlib.h>
+struct node
+{
+    int coeff;
+    int exp[3];
+    struct node *next;
+
+};
+struct node *addterm(struct node *p,int coeff,int i,int j,int k)
+{
+    struct node *temp,*temp1=p;
+    temp=malloc(sizeof(struct node));
+    temp->coeff=coeff;
+    temp->exp[0]=i;
+    temp->exp[1]=j;
+    temp->exp[2]=k;
+    while(temp1->next!=p)
+        temp1=temp1->next;
+        temp->next=temp;
+        temp->next=p;
+        return p;
+}
+struct node *mkheader()
+{
+    struct node *p=malloc(sizeof(struct node));
+    p->coeff=-1;
+    p->exp[0]=-1;
+    p->exp[1]=-1;
+    p->exp[2]=-1;
+    p->next=p;
+    return p;
+}
+int evaluate(struct node *p,int i,int j,int k)
+{
+    struct node *po=p->next;
+    int sum=0;
+    while(po!=p)
+    {
+        sum+=po->coeff*pow(i,po->exp[0])*pow
+        (j,po->exp[1])*pow(k,po->exp[2]);
+        po=po->next;
+    }
+    return sum;
+}
+void printpoly(struct node *p)
+{
+    struct node *po=p->next;
+    while(po!=p)
+    {
+        printf("%dx^%dy^%dz^%d",po->coeff,po->exp[0],po->exp[1],po->exp[2]);
+        if(po->next!=p)
+            printf("+");
+        po=po->next;
+    }
+    printf("\n");
+}
+void read(struct node *t1,int n)
+{
+    int i,px,py,pz,c;
+    struct node *temp;
+    for(i=1;i<n;i++)
+    {
+        printf("enter coeff and power of x,y,z\n");
+        scanf("%d%d%d%d",&c,&px,&py,&pz);
+        t1=addterm(t1,c,px,py,pz);
+    }
+    printpoly(t1);
+}
+struct node *add(struct node *p1,struct node *p2)
+{
+    struct node *temp=mkheader();
+    struct node *t1=p1->next,*t3=p1->next;
+    struct node *t2=p2->next;*t4=p2->next;
+    int i,flag;
+    while(t1!=p1)
+    {
+        t2=p2->next;
+        while(t2!=p2)
+        {
+            flag=0;
+            for(i=0;i<3;i++)
+            {
+                if(t1->exp[i]!=t2->exp[i])
+                {
+                    flag=1;
+                    break;
+                }
+            }
+            if(flag==0)
+            {
+                temp=addterm(temp,t1->coeff+t2->coeff,t1->exp[0],t1->exp[1],t1->exp[2]);
+                break;
+            }
+            t2=t2->next;
+        }
+        if(flag==1)
+        temp=addterm(temp,t1->coeff,t1->exp[0],t1->exp[1],t1->exp[2]);
+        t1=t1->next;
+    }
+    while(t4!=p2)
+    {
+        t3=p1->next;
+        while(t3!=p1)
+        {
+            flag=0;
+            for(i=0;i<3;i++)
+            {
+                if(t3->exp[i]!=t4->exp[i])
+                {
+                    flag=1;
+                    break;
+                }
+            }
+            if(flag==0)
+            break;
+            t3=t3->next;
+        }
+        if(flag==1)
+        temp=addterm(temp,t4->coeff,t4->exp[0],t4->exp[1],t4->exp[2]);
+        t4=t4->next;
+    }
+    return temp;
+}
+int main()
+{
+    int n,ch,x,y,z;
+    struct node *polysum;
+    struct node *poly1=mkheader();
+    struct node *poly2=mkheader();
+    while(1)
+    {
+        printf("1.evaluate\n2.add\n3.exit\nenter your choice\n");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:printf("enter no. of terms\n");
+                    scanf("%d",&n);
+                    read(poly1,n);
+                    printf("enter the values of x,y,z\n");
+                    scanf("%d%d%d",&x,&y,&z);
+                    printf("value=%d",evaluate(poly1,x,y,z));
+                    break;
+            case 2:printf("enter no. of terms in poly2\n");
+                    scanf("%d",&n);
+                    read(poly2,n);
+                    polysum=add(poly1,poly2);
+                    printpoly(polysum);
+                    break;
+            case 3:exit(0);
+        }
+    }
+}
+
